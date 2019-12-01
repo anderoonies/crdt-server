@@ -12,14 +12,12 @@ const server = express()
 
 
 const io = socketIO(server);
-let operations = [];
 io.on('connection', socket => {
-    socket.emit('operations', operations);
+    socket.broadcast.emit('newClient');
 
     socket.on('operations', operations => {
         console.log(operations);
         socket.broadcast.emit('operations', operations);
-        operations = operations.concat(operations);
     });
     socket.on('siteId', siteId => {
         socket.broadcast.emit('newSiteId', siteId);
