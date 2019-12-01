@@ -29,5 +29,8 @@ io.on('connection', socket => {
     socket.on('siteId', siteId => {
         socket.broadcast.emit('newSiteId', siteId);
     });
-    socket.on('disconnect', () => console.log('Client disconnected'));
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+        socket.broadcast.emit('peerDisconnect', clientSiteId);
+    });
 });
